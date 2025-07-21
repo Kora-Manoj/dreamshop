@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Your Orders - Dream's Shop{% endblock %}
+
+{% block content %}
+<main>
+    <h2>📦 Your Orders</h2>
+
+    {% if orders %}
+        <table class="order-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Ordered At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>{{ order.product.name }}</td>
+                        <td>{{ order.quantity }}</td>
+                        <td>{{ order.ordered_at|date:"F j, Y, g:i A" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>You haven't placed any orders yet. <a href="{% url 'home' %}">Start shopping</a> 🛒</p>
+    {% endif %}
+</main>
+{% endblock %}

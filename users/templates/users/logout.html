@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Logout - Dream's Shop{% endblock %}
+
+{% block content %}
+<main class="auth-container text-center">
+    <h2>👋 You've been logged out</h2>
+    <p>Thanks for visiting. Come back soon!</p>
+    <a href="{% url 'login' %}" class="btn">Login Again</a>
+</main>
+{% endblock %}

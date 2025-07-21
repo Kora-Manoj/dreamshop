@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Register - Dream's Shop{% endblock %}
+
+{% block content %}
+<main class="auth-container">
+    <h2 class="text-center">📝 Create Your Account</h2>
+    
+    <form method="post" class="form-box">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+
+    <p class="auth-link">👋 Already have an account? <a href="{% url 'login' %}">Login here</a>.</p>
+</main>
+{% endblock %}

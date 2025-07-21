@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}💳 Checkout - Dream's Shop{% endblock %}
+
+{% block content %}
+<main class="checkout-container">
+    <h2>💳 Checkout</h2>
+
+    {% if cart_items %}
+        <table class="checkout-table">
+            <thead>
+                <tr>
+                    <th>📦 Product</th>
+                    <th>🖼️ Image</th>
+                    <th>💰 Price (₹)</th>
+                    <th>🔢 Quantity</th>
+                    <th>🧮 Total (₹)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td><img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" width="80" height="80"></td>
+                    <td>{{ item.product.price }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.total_price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="grand-total">
+            <h3>🧾 Grand Total: ₹{{ grand_total }}</h3>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">✅ Place Order</button>
+        </form>
+    {% else %}
+        <p>No items to checkout. <a href="{% url 'home' %}">Go shopping</a> 🛒</p>
+    {% endif %}
+</main>
+{% endblock %}
