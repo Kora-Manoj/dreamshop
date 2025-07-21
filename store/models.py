@@ -7,9 +7,12 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2)
     image = models.ImageField(upload_to='products/')
     description = models.TextField()
+    vendor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='products', null=True, blank=True)
+  # 🔑 Add this line
 
     def __str__(self):
         return self.name
+
     
 class CartItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -31,3 +34,5 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order #{self.id} by {self.user.username}"
+    
+

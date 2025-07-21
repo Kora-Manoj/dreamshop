@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Vendor Dashboard{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>📦 Vendor Dashboard</h2>
+    <p>Welcome, {{ request.user.username }}! Here are your products:</p>
+    <a href="{% url 'vendor_product_create' %}" class="btn btn-success">➕ Add New Product</a>
+
+    {% if products %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price (₹)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100px; height: auto;">
+                        {% else %}
+                            No Image
+                        {% endif %}
+                    </td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>
+                        <a href="{% url 'vendor_product_update' product.pk %}" class="btn btn-primary">✏️ Edit</a>
+                        <a href="{% url 'vendor_product_delete' product.pk %}" class="btn btn-danger">🗑️ Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No products yet. Start by adding one!</p>
+    {% endif %}
+</div>
+{% endblock %}

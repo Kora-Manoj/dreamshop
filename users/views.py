@@ -13,3 +13,20 @@ class UserLoginView(LoginView):
 
 class UserLogoutView(LogoutView):
     template_name = 'users/logout.html'
+
+from django.views.generic import FormView
+from django.contrib.auth.models import User
+from .forms import VendorRegistrationForm
+from .models import UserProfile
+
+class VendorRegisterView(FormView):
+    template_name = 'users/vendor_register.html'
+    form_class = VendorRegistrationForm
+    success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.set_password(form.cleaned_data['password'])
+        user.save()
+        UserProfile.objects.create(user=user, is_vendor=True)
+        return super().form_valid(form)

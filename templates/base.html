@@ -17,6 +17,10 @@
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'cart' %}">🛒 Cart</a></li>
                         <li><a href="{% url 'orders' %}">📦 Orders</a></li>
+                            {% if user.userprofile.is_vendor %}
+        <li><a href="{% url 'vendor_dashboard' %}">📋 Vendor Dashboard</a></li>
+    {% endif %}
+
                         <li>
                             <form method="post" action="{% url 'logout' %}" class="logout-form">
                                 {% csrf_token %}
@@ -26,6 +30,7 @@
                     {% else %}
                         <li><a href="{% url 'login' %}">🔐 Login</a></li>
                         <li><a href="{% url 'register' %}">📝 Register</a></li>
+                         <li><a href="{% url 'vendor_register' %}">🧑‍💼 Vendor Register</a></li>
                     {% endif %}
                 </ul>
             </nav>
